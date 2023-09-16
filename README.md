@@ -1,2 +1,2 @@
-# CNL-miniproject
-This repo contains code for Semester V Computer Network Lab MiniProject
+# Video-Audio Streaming Server and Client Project
+
