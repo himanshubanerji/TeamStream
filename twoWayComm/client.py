@@ -1,27 +1,26 @@
 import socket
+import os
 import cv2
 import pickle
-import struct
-import os
 import threading
+import struct
 
 
 def sendImage():
     os.system('python3 server.py')
 
+
 t1 = threading.Thread(target=sendImage)
 t1.start()
 
-#Create Socket
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host_ip = '192.168.29.122'
-port = 9999
-client_socket.connect((host_ip, port))
+host_ip = '192.168.29.32'
+port = 9988
+client_socket.connect(('192.168.29.32', port))
 data = b""
 payload_size = struct.calcsize("Q")
 while True:
     while len(data) < payload_size:
-        # 8K bytes
         packet = client_socket.recv(8 * 1024)
         if not packet: break
         data += packet
@@ -34,9 +33,12 @@ while True:
     frame_data = data[:msg_size]
     data = data[msg_size:]
     frame = pickle.loads(frame_data)
-    cv2.imshow("RECEVING VIDEO ", frame)
+    cv2.imshow("Live Streaming Video Chat", frame)
     key = cv2.waitKey(1) & 0xFF
     if key == ord('q'):
         break
-
 client_socket.close()
+
+
+
+
