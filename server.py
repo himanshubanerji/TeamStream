@@ -1,4 +1,4 @@
-import socket, cv2, pickle, struct, imutils
+import socket, cv2, pickle, struct, imutils, threading, pyaudio
 
 #Socket Creation
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -17,13 +17,39 @@ server_socket.bind(socket_address)
 server_socket.listen(5)
 print("[*] LISTENING AT: ", socket_address)
 
+# Audio setup
+CHUNK = 1024
+FORMAT = pyaudio.paInt16
+CHANNELS = 2
+RATE = 44100
+
+p = pyaudio.PyAudio()
+
+def sendAudio(client_socket):
+    stream_send = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
+    while True:
+        data = stream_send.read(CHUNK)
+        client_socket.sendall(data)
+
+def receiveAudio(client_socket):
+    stream_receive = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, output=True, frames_per_buffer=CHUNK)
+    while True:
+        data = client_socket.recv(CHUNK)
+        stream_receive.write(data, CHUNK)
+
 #Socket Accept
 while True:
     client_socket, addr = server_socket.accept()
     print('[+] CONNECTED FROM: ', addr)
-    # print('GOT CONNECTION FROM:', addr)
+    
     if client_socket:
         vid = cv2.VideoCapture(0)
+
+        t_audio_send = threading.Thread(target=sendAudio, args=(client_socket,))
+        t_audio_send.start()
+
+        t_audio_receive = threading.Thread(target=receiveAudio, args=(client_socket,))
+        t_audio_receive.start()
 
         while(vid.isOpened()):
             img, frame = vid.read()
