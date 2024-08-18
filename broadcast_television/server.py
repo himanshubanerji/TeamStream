@@ -35,8 +35,8 @@ def handle_client(client_socket, addr):
 
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host_ip = "127.0.0.1"
-port = 8888
+host_ip = "192.168.29.122"
+port = 6666
 socket_address = (host_ip, port)
 
 server_socket.bind(socket_address)
