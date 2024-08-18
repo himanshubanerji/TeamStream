@@ -1,4 +1,4 @@
-# Broadcast yourself using sockets :)
+# Talk with your friends using sockets !!!
 
 ## Purpose of this project
 
