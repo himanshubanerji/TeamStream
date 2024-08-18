@@ -2,7 +2,7 @@
 
 > Using python socket programming
 
-### To use group broadcast television please navigate [here](./lets_talk)
+### To use group broadcast television please navigate [here](./broadcast_television)
 
 ### To use the groupchat application please navigate [here](./chatroom)
 
