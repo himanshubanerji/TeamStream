@@ -15,7 +15,7 @@ t1.start()
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host_ip = '192.168.29.32'
-port = 9988
+port = 8888
 client_socket.connect(('192.168.29.32', port))
 data = b""
 payload_size = struct.calcsize("Q")

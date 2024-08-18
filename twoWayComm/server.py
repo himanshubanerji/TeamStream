@@ -7,7 +7,7 @@ server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 host_ip = '192.168.29.122'
 print('[+] Connecting to : ', host_ip)
-port = 9988
+port = 8888
 socket_address = (host_ip, port)
 
 server_socket.bind(socket_address)

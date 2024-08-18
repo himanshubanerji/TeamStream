@@ -50,7 +50,7 @@ def receive_video_stream(client_socket):
 def main():
     global running
     host_ip = "127.0.0.1"
-    port = 9988
+    port = 8888
 
     print("[*] Press ESC to quit the application")
 
